@@ -9,6 +9,8 @@
 
 4. As you work, commit changes to your local copy of this repo
 
+5. When you are done create a pull request to the original repo at https://github.com/Wandr-Inc/template
+
 You can add more features if you would like but it is not necessary. Quality over quantity
 
 ### More Info
