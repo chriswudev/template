@@ -14,6 +14,7 @@
   "dependencies": {
     "@nuxt/typescript-runtime": "^2.0.0",
     "@nuxtjs/axios": "^5.12.2",
+    "@vue/composition-api": "^1.0.0-beta.18",
     "core-js": "^3.6.5",
     "nuxt": "^2.14.6",
     "pug": "^3.0.0",
