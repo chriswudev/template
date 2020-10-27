@@ -15,20 +15,30 @@
                 v-row
                   v-col(cols='12' md='6' lg='4' xl='3')
                     img(
-                      :src='require("@/assets/img/waterfall.jpeg")'
+                      :src='picture'
                       style='object-fit: contain; width: 100%;'
                     )
 </template>
 <script lang="ts">
 import { defineComponent, ref } from '@vue/composition-api'
+import axios from 'axios'
 
 export default defineComponent({
   setup () {
     // example setup function feel free to delete
-    const name = ref('John Smith')
+    const name = ref<string>('John Smith')
+    const picture = ref<null|string>(null)
+
+    axios({
+      url: 'https://aws.random.cat/meow',
+      method: 'GET'
+    }).then(res => {
+      picture.value = res.data.file
+    })
 
     return {
-      name
+      name,
+      picture
     }
   }
 })
