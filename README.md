@@ -5,11 +5,13 @@
 
 2. Use only the vue composition api i.e. don't use `data: {}, methods: {}` etc.
 
-3. Write jest tests for the `user.vue` component
+3. Use typescript.
 
-4. As you work, commit changes to your local copy of this repo
+4. Write jest tests for the `user.vue` component
 
-5. When you are done create a pull request to the original repo at https://github.com/Wandr-Inc/template
+5. As you work, commit changes to your local copy of this repo
+
+6. When you are done create a pull request to the original repo at https://github.com/Wandr-Inc/template
 
 You can add more features if you would like but it is not necessary. Quality over quantity
 
