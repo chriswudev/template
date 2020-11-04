@@ -15,7 +15,6 @@
   "dependencies": {
     "@nuxt/typescript-runtime": "^2.0.0",
     "@nuxtjs/apollo": "^4.0.1-rc.4",
-    "@nuxtjs/axios": "^5.12.2",
     "@vue/apollo-composable": "^4.0.0-alpha.12",
     "@vue/composition-api": "^1.0.0-beta.18",
     "apollo-boost": "^0.4.9",
