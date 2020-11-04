@@ -1,0 +1,6 @@
+schema: https://moved-phoenix-38.hasura.app/v1/graphql
+overwrite: true
+generates:
+  ./apollo/schema/index.ts:
+    plugins:
+      - typescript

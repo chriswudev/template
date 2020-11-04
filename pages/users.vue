@@ -1,51 +1,82 @@
 <template lang="pug">
-  v-container
-    v-row.justify-center
-      v-col(cols='12' md='10' lg='8')
-        v-card
-          v-card-title Users
-          v-card-text
-            v-list-group
-              template(v-slot:activator)
-                v-list-item-avatar
-                  img(:src='require("@/assets/img/user_avatar.png")')
-                v-list-item-content
-                  | {{ name }}
-              v-container
-                v-row
-                  v-col(
-                    v-for='(pic, i) in pictures'
-                    :key='pic'
-                    cols='12' md='6' lg='4' xl='3'
+v-container
+  v-row.justify-center
+    v-col(cols="12", md="10", lg="8")
+      v-card
+        v-card-title Users
+        v-card-text
+          v-list-group(v-for="user in users", :key="user.id")
+            template(v-slot:activator)
+              v-list-item-avatar
+                img(:src="user.display_picture")
+              v-list-item-content
+                | {{ user.display_name }}
+            v-container
+              v-row
+                v-col(
+                  v-if="posts[user.id]",
+                  :key="user.id",
+                  cols="12",
+                  md="6",
+                  lg="4",
+                  xl="3"
+                )
+                  img(
+                    :src="posts[user.id]",
+                    style="object-fit: contain; width: 100%;"
                   )
-                    img(
-                      :src='pic'
-                      style='object-fit: contain; width: 100%;'
-                    )
 </template>
 <script lang="ts">
-import { defineComponent, reactive, ref } from '@vue/composition-api'
-import axios from 'axios'
+import {
+  defineComponent,
+  reactive,
+  ref,
+  provide,
+  computed,
+} from "@vue/composition-api";
+import { DefaultApolloClient, useQuery } from "@vue/apollo-composable";
+import ApolloClient, { gql } from "apollo-boost";
+import UsersQuery from "~/apollo/queries/Users.gql";
+import PostsQuery from "~/apollo/queries/Posts.gql";
+import { Posts } from "~/apollo/schema";
+
+const apolloClient = new ApolloClient({
+  uri: "https://moved-phoenix-38.hasura.app/v1/graphql",
+});
 
 export default defineComponent({
-  // example setup function feel free to delete
-  setup () {
-    const name = ref<string>('John Smith')
-    const pictures = reactive<string[]>([])
+  setup() {
+    provide(DefaultApolloClient, apolloClient);
 
-    for (let i = 0; i < 3; i++) {
-      axios({
-        url: 'https://aws.random.cat/meow',
-        method: 'GET'
-      }).then(res => {
-        pictures.push(res.data.file)
+    const { result: usersResult } = useQuery(UsersQuery);
+
+    const { result: postsResult } = useQuery(PostsQuery);
+
+    const users = reactive(
+      computed(() => {
+        if (usersResult.value) {
+          return usersResult.value.users;
+        }
+        return [];
       })
-    }
+    );
+
+    const posts = reactive(
+      computed(() => {
+        let result: { [key: string]: Posts["thumbnail"] } = {};
+        if (postsResult.value && postsResult.value.posts) {
+          postsResult.value.posts.forEach((post: Posts) => {
+            result[post.user_id] = post.thumbnail;
+          });
+        }
+        return result;
+      })
+    );
 
     return {
-      name,
-      pictures
-    }
-  }
-})
+      users,
+      posts,
+    };
+  },
+});
 </script>

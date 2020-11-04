@@ -1,0 +1,7 @@
+query Users {
+  users {
+    id
+    display_name
+    display_picture
+  }
+}
