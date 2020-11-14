@@ -23,9 +23,7 @@ export default {
   ],
 
   // Plugins to run before rendering page (https://go.nuxtjs.dev/config-plugins)
-  plugins: [
-    'plugins/composition-api'
-  ],
+  plugins: [],
 
   // Auto import components (https://go.nuxtjs.dev/config-components)
   components: true,
@@ -43,7 +41,11 @@ export default {
     '@nuxtjs/apollo'
   ],
   apollo: {
-    clientConfigs: {}
+    clientConfigs: {
+      default: {
+        httpEndpoint: 'http://localhost:4000https://moved-phoenix-38.hasura.app/v1/graphql',
+      }
+    }
   },
 
   // Vuetify module configuration (https://go.nuxtjs.dev/config-vuetify)

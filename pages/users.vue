@@ -34,14 +34,16 @@ import {
   provide,
   computed,
 } from "@vue/composition-api";
+import fetch from "isomorphic-fetch";
 import { DefaultApolloClient, useQuery } from "@vue/apollo-composable";
-import ApolloClient, { gql } from "apollo-boost";
+import ApolloClient from "apollo-boost";
 import UsersQuery from "~/apollo/queries/Users.gql";
 import PostsQuery from "~/apollo/queries/Posts.gql";
 import { Posts } from "~/apollo/schema";
 
 const apolloClient = new ApolloClient({
   uri: "https://moved-phoenix-38.hasura.app/v1/graphql",
+  fetch
 });
 
 export default defineComponent({

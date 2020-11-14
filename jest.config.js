@@ -1,4 +1,5 @@
 module.exports = {
+  preset: 'ts-jest',
   moduleNameMapper: {
     '^@/(.*)$': '<rootDir>/$1',
     '^~/(.*)$': '<rootDir>/$1',
@@ -8,10 +9,10 @@ module.exports = {
     'ts',
     'js',
     'vue',
-    'json'
+    'json',
+    'gql'
   ],
   transform: {
-    '^.+\\.ts$': 'ts-jest',
     '^.+\\.js$': 'babel-jest',
     '.*\\.(vue)$': 'vue-jest'
   },
@@ -19,5 +20,6 @@ module.exports = {
   collectCoverageFrom: [
     '<rootDir>/components/**/*.vue',
     '<rootDir>/pages/**/*.vue'
-  ]
+  ],
+  setupFilesAfterEnv: ['./test/jest.setup.js']
 }
